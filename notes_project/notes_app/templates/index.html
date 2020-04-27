@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {% load static %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        $(document).ready(function(){
+            $('form').submit(function(e){
+                e.preventDefault();
+                console.log('Form submitted but no HTTP request sent to server')
+            })
+        })
+    </script>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-2">
         <h1>My Posts</h1>
     </div>
-    <div class="container py-3">
+    <div class="container py-4">
     {% for note in notes %}
-        <span class="container p-3 border rounded bg-secondary text-light">{{ note.content }}</span>
+        <span class="container note mb-3 p-3 note rounded bg-secondary text-light">{{ note.content }}</span>
     {% endfor %}
     </div>
     <div class="container" >
@@ -26,4 +35,6 @@
         </form>
     </div>
 </body>
+
+
 </html>
