@@ -10,16 +10,24 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script>
         $(document).ready(function(){
+            //grab the form and prevent it from being submitted
             $('form').submit(function(e){
+                //prevent submit
                 e.preventDefault();
+                //use ajax to display the note
                 $.ajax({
+                    //url for post data
                     url: '/add_note',
                     method: 'POST',
+                    //serialize creates a text string the the server can parse through
                     data: $(this).serialize(),
+                    // on success display the note on the page without reload
                     success: function (serverResponse){
+                        //display the notes in the notes div
                         $('.notes').html(serverResponse)
                     }
                 })
+                //reset the prevent default
                 $(this).trigger('reset')
             })
         })
@@ -29,6 +37,7 @@
     <div class="container mt-2">
         <h1>My Posts</h1>
     </div>
+    <!-- display the notes -->
     <div class="container notes py-4">
     {% for note in notes %}
         <span class="container note mb-3 p-3 note rounded bg-secondary text-light">{{ note.content }}</span>
