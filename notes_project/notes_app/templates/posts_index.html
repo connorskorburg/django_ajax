@@ -1,0 +1,7 @@
+<div class="container notes py-4">
+    {% for note in notes %}
+    <div class="container note mb-3 p-3 note rounded bg-secondary text-light">
+        <p>{{ note.content }}</p>
+    </div>
+    {% endfor %}
+</div>

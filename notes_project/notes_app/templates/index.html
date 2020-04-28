@@ -12,7 +12,15 @@
         $(document).ready(function(){
             $('form').submit(function(e){
                 e.preventDefault();
-                console.log('Form submitted but no HTTP request sent to server')
+                $.ajax({
+                    url: '/add_note',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function (serverResponse){
+                        $('.notes').html(serverResponse)
+                    }
+                })
+                $(this).trigger('reset')
             })
         })
     </script>
@@ -21,7 +29,7 @@
     <div class="container mt-2">
         <h1>My Posts</h1>
     </div>
-    <div class="container py-4">
+    <div class="container notes py-4">
     {% for note in notes %}
         <span class="container note mb-3 p-3 note rounded bg-secondary text-light">{{ note.content }}</span>
     {% endfor %}
@@ -30,7 +38,7 @@
         <form action="/add_note" method=POST>
         {% csrf_token %}
             <h2>Add a note: </h2>
-            <textarea name="content" id="" class="form-control"></textarea>
+            {{ notes_form.as_p }}
             <button type="submit" class="btn btn-dark mt-3">Add Note</button>
         </form>
     </div>
